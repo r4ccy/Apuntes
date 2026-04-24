@@ -263,12 +263,136 @@ agregar lista de frutas al README
 
 ---
 
+## Git vs GitHub
+
+Git y GitHub no son lo mismo. Git es la herramienta que se usa para controlar versiones de forma local, todo lo que se hace con add, commit, etc, ocurre en mi computadora. GitHub es una plataforma que permite subir esos repositorios a internet, compartirlos y trabajar en equipo.
+
+---
+
+## GitHub
+
+GitHub sirve para almacenar repositorios en la nube, acceder a ellos desde cualquier computadora y compartir proyectos con otras personas, para usarlo se necesita crear una cuenta en github.com. El username es único y permanente, por lo que es importante elegirlo bien. No es recomendable usar cuenta institucional porque se puede perder al terminar la carrera.
+
+---
+
+## Diferencia importante
+
+El nombre se configura en Git con:
+```
+git config user.name
+```
+es el que aparece como autor en los commits y el username de GitHub es el que identifica mi cuenta dentro de la plataforma.
+
+---
+
+## Crear repositorio en GitHub
+
+Para crear un repositorio se va a "New repository", se le asigna un nombre (preferiblemente igual al proyecto), se puede añadir una descripción y se elige si será público o privado, no es obligatorio crear README o .gitignore desde GitHub si ya existen localmente.
+
+---
+
+## Conectar repositorio local con GitHub
+
+Para conectar un proyecto local con el repositorio remoto se usa:
+```
+git remote add origin URL_proy
+```
+Esto hace que el repositorio local apunte al repositorio en GitHub, permitiendo subir los commits.
+
+---
+
+## Rama principal
+
+Actualmente el estándar es usar "main" en lugar de "master". Si es necesario cambiarla:
+```
+git branch -M main
+```
+
+---
+
+## Subir cambios por primera vez
+
+Para subir el proyecto a GitHub:
+```
+git push -u origin main
+```
+Esto sube todo y deja configurada la conexión entre el repositorio local y el remoto, después de eso, solo se usa:
+```
+git push
+```
+
+---
+
+## SSH
+
+SSH permite autenticarse sin tener que escribir usuario y contraseña cada vez. Para generar la clave:
+```
+ssh-keygen -t ed25519 -C "tu_correo"
+```
+Luego se copia la clave pública y se añade en GitHub en la sección de SSH keys, para verificar que funciona:
+```
+ssh -T git@github.com
+```
+Si todo está correcto, se mostrará un mensaje indicando que la autenticación fue exitosa.
+
+---
+
+## HTTPS vs SSH
+
+Si usamos HTTPS, GitHub puede pedir credenciales constantemente o incluso fallar al hacer push, por otro lado, con SSH la autenticación es automática. Por eso es recomendable usar SSH.
+
+---
+
+## Clonar repositorio
+
+Para descargar un repositorio:
+```
+git clone URL_proy
+```
+Esto permite trabajar desde otra computadora o compartir el proyecto, es importante usar la URL SSH si ya se configuró el SSH.
+
+---
+
+## git push
+
+Sirve para subir los commits al repositorio remoto:
+```
+git push
+```
+
+---
+
+## Problema común
+
+Si clono un repositorio con HTTPS, aunque tenga SSH configurado, seguirá pidiendo credenciales, la solución es clonar directamente con SSH.
+
+---
+
+## Límites de GitHub
+
+GitHub permite subir archivos de hasta 100 MB. Por eso se usa .gitignore para evitar subir archivos pesados o innecesarios.
+
+---
+
+## Ver commits en GitHub
+
+En GitHub puedo ver el historial de commits, quién hizo los cambios y qué modificaciones se realizaron en cada commit.
+
+---
+
+## Perfil de GitHub
+
+Si creo un repositorio con el mismo nombre que mi usuario, este aparece en mi perfil. Se puede usar como portafolio mostrando información personal, tecnologías y proyectos.
+
+---
+
 ## Importante
 
-Git permite gestionar versiones de un proyecto y mantener control sobre su evolución.
+Git permite gestionar versiones de un proyecto y mantener control sobre su evolución, funciona de forma local y GitHub de forma remota
 
 No guarda actumáticamente todo lo que se va haciendo.
 1. hago cambios
 2. selecciono qué guardar (add)
 3. recién guardo (commit)
+4. push para subir cambios
 ---
