@@ -386,6 +386,200 @@ Si creo un repositorio con el mismo nombre que mi usuario, este aparece en mi pe
 
 ---
 
+## Git remote
+
+El comando `git remote` permite gestionar la conexión entre el repositorio local y el repositorio remoto, actúa como un “puente” o referencia hacia la URL donde están mis archivos en la nube, cuando se usa `origin`, en realidad estoy usando un alias que apunta a esa URL, para no tener que escribirla completa cada vez.
+
+Para ver a qué repositorio esta uno conectado se usa:
+
+```
+git remote -v
+```
+
+Esto muestra las URLs tanto para subir cambios (push) como para traer cambios (fetch).
+
+---
+
+## Cambiar repositorio remoto
+
+Si ya se tiene un repositorio conectado pero se quiere cambiar la URL (ej: pasar de HTTPS a SSH o apuntar a otro repo), se usa:
+
+```
+git remote set-url origin URL
+```
+
+Esto no solo sirve para cambiar de HTTPS a SSH, también sirve si quiero que mi proyecto apunte a otro repo completamente distinto.
+
+---
+
+## Detalle sobre remote
+
+El remote funciona como un puntero, mi repositorio local no está “casado” con un único repositorio remoto, puedo cambiarlo cuando quiera, pero solo se puede trabajar conectado a uno a la vez, los push y pull irán siempre al repositorio que esté configurado en ese momento.
+
+---
+## SSH con múltiples cuentas
+
+Cuando se usa SSH, se tiene una sola clave asociada a la cuenta de GitHub, pero si tengo más de una cuenta (ej: personal y trabajo), necesito múltiples claves SSH.
+
+Cada clave SSH funciona como una “llave” que abre una cuenta específica, no se puede usar la misma llave para todas las cuentas, porque entonces no habría forma de diferenciarlas.
+
+---
+
+## Generar múltiples claves SSH
+
+Para crear una nueva clave SSH se usa:
+```
+ssh-keygen -t ed25519 -C "tu_correo"
+```
+
+Pero para no sobrescribir la clave anterior, se usa:
+```
+ssh-keygen -t ed25519 -C "tu_correo" -f ~/.ssh/nombre_clave
+```
+
+Esto permite tener varias claves con diferentes nombres.
+
+---
+
+## Archivo config
+
+Para que la computadora sepa cuándo usar cada clave, se crea el archivo:
+```
+~/.ssh/config
+```
+
+Aquí se define algo como:
+- un alias (host)
+- la dirección real (hostname)
+- la clave que se debe usar
+
+El host es como un nombre personalizado que le doy a la conexión, el hostname sigue siendo github.com, pero el host cambia para diferenciar cuentas.
+
+---
+
+## Detalle sobre config
+
+El sistema lee este archivo de arriba hacia abajo, por eso es importante que cada cuenta tenga un host distinto, si uso el mismo nombre, puede usar la clave equivocada.
+
+---
+
+## Verificar conexión SSH
+
+Para comprobar que la conexión funciona:
+```
+ssh -T git@host
+```
+
+Si todo está bien, aparece un mensaje de autenticación exitosa.
+
+---
+
+## Error común con múltiples cuentas
+
+Aunque tenga varias claves SSH, si el repositorio sigue apuntando a `github.com`, usará la clave por defecto, para solucionarlo, debo cambiar el remote usando el host que definí en config.
+
+Ej:
+```
+git remote set-url origin git@host:usuario/repositorio.git
+```
+
+---
+
+## Configuración global vs local
+
+Cuando uso:
+```
+git config --global user.name "Nombre"
+git config --global user.email "correo"
+```
+esto aplica a todos los repositorios.
+
+Pero si quiero que un repositorio tenga otro usuario (ej: otra cuenta), uso:
+```
+git config user.name "Nombre"
+git config user.email "correo"
+```
+
+Sin `--global`, la configuración es local.
+
+---
+
+## Jerarquía de configuración
+
+Git maneja niveles de configuración:
+- sistema
+- global
+- local
+
+La configuración local tiene prioridad sobre la global, esto significa que si configuro un usuario distinto en un repositorio, ese será el que se use en los commits.
+
+---
+
+## Problema común
+
+Si no cambio la configuración local, los commits pueden aparecer con el usuario incorrecto, aunque esté usando otra cuenta, esto pasa porque Git usa la configuración global por defecto.
+
+---
+
+## Git checkout
+
+El comando `git checkout` permite moverse entre commits o ramas, no necesariamente cambia el historial, sino que permite ver cómo estaba el proyecto en otro momento.
+
+---
+
+## Volver a un commit
+
+Para ir a un commit específico:
+```
+git checkout hash
+```
+
+Esto mueve el puntero (HEAD) a ese commit.
+
+---
+
+## Detached HEAD
+
+Cuando se hace checkout a un commit, entra en estado “detached HEAD”, esto significa que no estoy en una rama, sino en un punto específico del historial.
+
+En este estado puedo ver archivos antiguos, pero no es recomendable trabajar ahí.
+
+---
+
+## Volver a la rama principal
+
+Para regresar:
+```
+git checkout main
+```
+
+Esto devuelve al estado actual del proyecto.
+
+---
+
+## Advertencia
+
+Si hago cambios en un detached HEAD y hago commit, ese commit puede perderse porque no está asociado a ninguna rama, git muestra una advertencia indicando esto.
+
+---
+
+## Guardar cambios desde checkout
+
+Si se hace cambios y quiero guardarlos, puedo crear una nueva rama:
+```
+git checkout -b nombre_rama
+```
+
+Esto evita perder el trabajo realizado.
+
+---
+
+## Restricción
+
+No se puede hacer `git checkout` si hay cambios sin guardar, primero debo hacer commit o descartar los cambios.
+
+---
+
 ## Importante
 
 Git permite gestionar versiones de un proyecto y mantener control sobre su evolución, funciona de forma local y GitHub de forma remota
