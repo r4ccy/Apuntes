@@ -711,6 +711,201 @@ feature/add-user
 
 ---
 
+## git merge
+
+merge significa fusión, `git merge` permite unir ramas y así todos lo cambios los une. Se usa cuando ya uno termina de trabajar en su rama y quieres pasar esos cambios a otra (generalmente develop).
+
+La idea es:
+trabajas separado -> todo funciona -> unes los cambios
+
+---
+
+## --no-ff (no fast forward)
+
+```
+git merge --no-ff nombre_rama
+```
+
+Fuerza a que se cree un commit de merge.
+
+Sirve para:
+- mantener el historial
+- ver que hubo una rama
+- saber cuándo se hizo el merge
+
+Sin esto:
+Git une todo y parece que nunca existió la rama
+
+---
+
+## fast forward
+
+Cuando se usa `--no-ff`, Git hace un merge rápido.
+
+Lo que hace:
+- mueve el puntero
+- une todo
+- no crea commit de merge
+- “desaparece” la rama en el historial
+
+---
+
+## git fetch
+
+```
+git fetch
+```
+
+Es como revisar si hay cambios en el repositorio remoto, no trae los cambios directamente, solo informa y así estamos pendientes de los ultimos cambios.
+
+Es como:
+“oye, hay cambios, fíjate”
+
+---
+
+## git pull
+
+Trae los cambios del repositorio remoto a la máquina, sirve para actualizar tu repositorio local con lo que hay en remoto, si no hacemos pull antes de trabajar puede generar conflictos.
+
+```
+git pull origin nombre_rama
+```
+
+Ej:
+```
+git pull origin develop
+```
+
+---
+
+## git push
+
+Sube los cambios al repositorio remoto.
+
+```
+git push origin nombre_rama
+```
+
+Ej:
+```
+git push origin develop
+```
+
+---
+
+## primer push (cuando no es tu repo/no eres propietario)
+
+Si no eres dueño del repositorio, la primera vez se usa:
+
+```
+git push -u origin rama
+```
+
+Esto crea la rama en remoto y la deja vinculada.
+
+Luego ya se puede usar solo:
+```
+git push
+```
+
+---
+
+## Ejemplo de flujo de trabajo (sin pull request)
+
+Antes de hacer merge:
+
+1. ir a develop
+```
+git checkout develop
+```
+
+2. revisar cambios
+```
+git fetch
+```
+
+3. traer cambios
+```
+git pull origin develop
+```
+
+4. hacer merge
+```
+git merge --no-ff nombre_rama (maybe main)
+```
+
+5. si hay conflictos -> resolver manualmente
+
+6. agregar cambios
+```
+git add .
+```
+
+7. hacer commit
+```
+git commit
+```
+
+8. eliminar rama
+```
+git branch -D nombre_rama
+```
+
+9. subir cambios
+```
+git push origin develop
+```
+
+---
+
+## Conflictos
+
+Un conflicto ocurre cuando: dos personas modifican el mismo archivo en la misma parte y Git no sabe cuál cambio usar.
+
+---
+
+## Cómo se ven los conflictos
+
+Git agrega marcas como:
+
+- "<<<<<<<" HEAD -> tu código actual
+- "=======" -> separación
+- ">>>>>>>" rama -> código de la otra rama
+
+---
+
+## Resolver conflictos
+
+Hay que:
+- decidir qué código queda
+- borrar lo que no sirve
+- borrar los símbolos raros (en vs no aparecen)
+- dejar el archivo limpio
+
+Puede ser:
+- quedarse con uno
+- quedarse con ambos
+- modificar
+
+Luego:
+```
+git add .
+git commit
+```
+
+---
+
+## Caso importante (mejor práctica)
+
+No hacer merge directo en develop.
+
+Optar por:
+- llevar develop a tu rama (feature/...)
+- resolver conflictos en la rama
+- luego merge limpio a develop
+
+---
+
 ## Importante
 
 Git permite gestionar versiones de un proyecto y mantener control sobre su evolución, funciona de forma local y GitHub de forma remota
@@ -723,4 +918,6 @@ Flujo promedio:
 2. selecciono qué guardar (add)
 3. recién guardo (commit)
 4. push para subir cambios
+
+La comunicación es clave.
 ---
