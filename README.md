@@ -580,11 +580,145 @@ No se puede hacer `git checkout` si hay cambios sin guardar, primero debo hacer 
 
 ---
 
+## Ramas (branches)
+
+Las ramas permiten crear una versión alterna de mi código sin afectar la principal.
+
+Es como hacer una copia del proyecto en el estado actual (último commit) y trabajar ahí aparte.
+
+Sirve para:
+- no romper el código que ya funciona
+- trabajar sin miedo
+- trabajar en equipo sin chocar
+
+Antes esto se hacía copiando carpetas, Git lo hace más ordenado.
+
+---
+
+## git branch
+
+```
+git branch
+```
+Lista las ramas y muestra en cuál estoy.
+
+```
+git branch nombre_rama
+```
+Crea una rama desde donde estoy.
+
+```
+git branch -D nombre_rama
+```
+Elimina la rama.
+
+Detalle: cuando creo una rama, no me mueve automáticamente.
+
+---
+
+## HEAD y origin
+
+HEAD → indica dónde estoy (rama actual)
+
+Ej:
+- HEAD -> main → estoy en main
+- origin/main → es la rama main pero en GitHub
+
+origin = alias del repo remoto
+
+---
+
+## git checkout (con ramas)
+
+```
+git checkout nombre_rama
+```
+Mueve a otra rama.
+
+```
+git checkout -b nombre_rama
+```
+Crea la rama y me mueve a esa rama.
+
+---
+
+## git switch
+
+```
+git switch nombre_rama
+```
+Solo sirve para cambiar de ramas.
+
+No sirve para ir a commits antiguos.
+
+```
+git switch -c nombre_rama
+```
+Crea y cambia de rama directo.
+
+---
+
+## Cambiar de rama
+
+Si hay cambios sin guardar (modified/staged), git no me dejará cambiar de rama, primero hay que guardarlos o descartarlos.
+
+---
+
+## Gitflow
+
+Gitflow es una forma de organizar el trabajo con ramas.
+Sirve para que varias personas trabajen en el mismo proyecto sin chocar.
+
+---
+
+## Ramas principales
+
+### main
+
+Código final / producción
+Solo debería tener cosas que funcionan, no se trabaja sobre esta rama directamente, para eso tenemos las ramas.
+
+---
+
+### develop
+
+Aquí van cosas que todavía se están probando o desarrollando.
+
+---
+
+## Ramas de apoyo
+
+### feature
+
+Para nuevas funcionalidades y se van desarrollando en esas ramas.
+
+Ej:
+```
+feature/login
+feature/add-user
+```
+
+---
+
+## Buenas prácticas al usar ramas
+
+- no trabajar en main
+- una rama = una funcionalidad
+- nombres claros (en inglés)
+- no usar espacios
+- eliminar ramas después
+- commits dentro de la rama
+
+---
+
 ## Importante
 
 Git permite gestionar versiones de un proyecto y mantener control sobre su evolución, funciona de forma local y GitHub de forma remota
 
-No guarda actumáticamente todo lo que se va haciendo.
+No guarda automáticamente todo lo que se va haciendo.
+
+Flujo promedio:
+
 1. hago cambios
 2. selecciono qué guardar (add)
 3. recién guardo (commit)
