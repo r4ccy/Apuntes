@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="img/git.png" alt="Logo" width="100"/>
+</p>
+
 # Apuntes – Git
 
 ## ¿Qué es Git?
