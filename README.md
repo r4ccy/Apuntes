@@ -906,6 +906,127 @@ Optar por:
 
 ---
 
+## Pull Request (PR)
+
+Un PR es una forma de proponer cambios antes de hacer merge, en lugar de unir directamente una rama, se crea una “petición” para que otros revisen el código y recién poder unir el código.
+
+Sirve para:
+- avisar sobre los cambios que queremos o quieren hacer
+- que otros vean tu código
+- evitar errores o cosas mal hechas
+- no confiar a ciegas
+
+Al trabajar solo con push y merge es riesgoso, puede pasar:
+
+- alguien hace mal el merge
+- sube código roto
+- sube algo malicioso
+
+El PR obliga a que el equipo revise los cambios antes de aceptarlos
+
+---
+
+## Qué permite un PR
+
+- ver los cambios (commit por commit)
+- comentar el código
+- aprobar o rechazar cambios
+- dar feedback
+- decidir si se hace merge o no
+
+---
+
+## Flujo con Pull Request
+
+1. ir a develop
+```
+git checkout develop
+```
+
+2. actualizar
+```
+git fetch
+git pull origin develop
+```
+
+3. ir a una rama (o crearla)
+```
+git switch nombre_rama
+```
+
+4. trabajar normalmente (commits)
+
+5. subir la rama
+```
+git push origin rama
+```
+
+6. ir a GitHub
+
+7. crear Pull Request
+
+---
+
+## Qué pasa en el PR
+
+- elegimos qué rama quieres unir (ej: feature/footer → develop)
+- ponemos título y descripción
+- explicamos que se hizo
+
+GitHub te muestra:
+- los cambios
+- los commits
+- posibles conflictos (que hay que resolver antes del merge o no permite el merge)
+
+---
+
+## Revisiones
+
+El equipo puede:
+- aprobar (approve)
+- pedir cambios (request changes)
+- comentar
+
+Si alguien pide cambios, tenemos que corregir/aplicarlo.
+
+---
+
+## Actualizar PR
+
+Si hacemos cambios después de un PR:
+
+- commit
+- push
+
+GitHub actualiza automáticamente el PR, pero se pierden aprobaciones anteriores
+
+---
+
+## Diferencia con el flujo normal/manual
+
+Sin PR:
+- merge directo
+- más rápido pero riesgoso
+
+Con PR:
+- más lento
+- más seguro
+- más profesional
+
+---
+
+## Reglas/Ajustes
+
+Se pueden configurar reglas en GitHub:
+
+- obligar a usar PR
+- definir cuántas aprobaciones se necesitan
+- bloquear merge sin revisión
+
+Esto se hace para proteger el repositorio.
+
+---
+
 ## Importante
 
 Git permite gestionar versiones de un proyecto y mantener control sobre su evolución, funciona de forma local y GitHub de forma remota
