@@ -1027,6 +1027,172 @@ Esto se hace para proteger el repositorio.
 
 ---
 
+## Git stash
+
+`git stash` sirve para guardar cambios temporalmente sin hacer commit, sirve mucho cuando queremos cambiar de rama pero tengo cambios sin guardar y Git no me deja.
+
+### Cómo usar stash
+
+Guardar cambios:
+```
+git stash -m "commit"
+```
+
+El mensaje no es obligatorio, pero sirve para saber qué guardaste, es a elección.
+
+---
+
+## Ver cambios guardados
+
+```
+git stash list
+```
+
+Muestra todos los cambios guardados en stash.
+
+---
+
+## Recuperar cambios
+
+```
+git stash pop
+```
+
+Trae de vuelta los cambios guardados y los cambios vuelven como si nunca los hubieramos quitado.
+
+---
+
+## git diff
+
+`git diff` sirve para ver diferencias en el código.
+
+muestra:
+- qué cambió
+- qué se eliminó (rojo)
+- qué se agregó (verde)
+
+---
+
+## Tipos de git diff
+
+### Ver cambios sin añadir
+```
+git diff
+```
+
+Muestra cambios que aún no están en staging
+
+---
+
+### Ver cambios en staging
+```
+git diff --staged
+```
+
+Muestra lo que ya se hizo `git add`
+
+---
+
+### Ver cambios entre ramas
+```
+git diff rama1 rama2
+```
+
+Permite comparar dos ramas completas.
+
+---
+
+### Ver cambios de un archivo
+```
+git diff nombre_archivo
+```
+
+Muestra diferencias solo en ese archivo.
+
+---
+
+## PR con conflictos (caso real)
+
+Problema:
+dos personas hacen cambios en el mismo archivo
+
+Se aprueba un PR primero -> todo bien
+
+El segundo PR -> ahora tiene conflictos
+
+Git detecta que el código cambió después del PR y git no deja hacer merge
+
+---
+
+## Qué hacer
+
+1. ir a develop
+```
+git checkout develop
+```
+
+2. actualizar
+```
+git pull origin develop
+```
+
+3. volver a la rama
+```
+git switch nombre_rama
+```
+
+4. traer cambios de develop
+```
+git merge develop
+```
+
+---
+
+## Resolver conflictos
+
+Git marca conflictos en archivos.
+
+Opciones:
+- editar manualmente
+- usar editor (ej: VS Code)
+
+VS Code permite:
+- aceptar cambios actuales
+- aceptar cambios entrantes
+- combinar ambos
+
+---
+
+## Después de resolver
+
+```
+git add .
+git commit
+git push origin rama
+```
+
+Luego, el PR se actualiza.
+
+---
+
+## Buenas prácticas
+
+- revisar PRs constantemente
+- no dejar PRs viejos
+- actualizar tu rama antes de hacer merge
+- borrar ramas después del merge
+
+---
+
+## Borrar rama (importante)
+
+Después de hacer merge:
+se recomienda borrar la rama
+
+Esto mantiene el repositorio limpio
+
+---
+
 ## Importante
 
 Git permite gestionar versiones de un proyecto y mantener control sobre su evolución, funciona de forma local y GitHub de forma remota
